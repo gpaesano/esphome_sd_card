@@ -30,7 +30,7 @@ bool SDFileServer::canHandle(AsyncWebServerRequest *request) const {
   }
   const char *prefix = this->build_prefix().c_str();
   bool match = str_startswith(url, prefix);
-  ESP_LOGD(TAG, "can handle %s %u", url, match);
+  ESP_LOGD(TAG, "can a handle %s %u", url, match);
   return match;
 }
 
