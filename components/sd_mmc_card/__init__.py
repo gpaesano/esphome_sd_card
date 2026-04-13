@@ -123,7 +123,7 @@ SD_MMC_WRITE_FILE_ACTION_SCHEMA = cv.Schema(
 ).extend(SD_MMC_PATH_ACTION_SCHEMA)
 
 @automation.register_action(
-    "sd_mmc_card.write_file", SdMmcWriteFileAction, SD_MMC_WRITE_FILE_ACTION_SCHEMA , fasle
+    "sd_mmc_card.write_file", SdMmcWriteFileAction, SD_MMC_WRITE_FILE_ACTION_SCHEMA , false
 )
 async def sd_mmc_write_file_to_code(config, action_id, template_arg, args):
     parent = await cg.get_variable(config[CONF_ID])
