@@ -30,18 +30,26 @@ bool SDFileServer::canHandle(AsyncWebServerRequest *request) const {
 }
 
 void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
-  ESP_LOGD(TAG, "%s", request->url().c_str());
-  if (str_startswith(std::string(request->url().c_str()), this->build_prefix())) {
-    if (request->method() == HTTP_GET) {
-      this->handle_get(request);
-      return;
-    }
-    if (request->hasParam("delete")) {
-    // if (request->method() == HTTP_DELETE) {
-      this->handle_delete(request);
-      return;
-    }
+  const std::string url = request->url().c_str();
+
+  ESP_LOGD(TAG, "REQUEST: %s", url.c_str());
+
+  // sicurezza: filtra solo il nostro prefix
+  if (!str_startswith(url, this->build_prefix())) {
+    return;
   }
+
+  if (request->method() == HTTP_GET && !request->hasParam("delete")) {
+    ESP_LOGD(TAG, "GET file request");
+    this->handle_get(request);
+    return;
+  }
+  if (request->hasParam("delete")) {
+    ESP_LOGD(TAG, "DELETE file request via param");
+    this->handle_delete(request);
+    return;
+  }
+  request->send(400, "text/plain", "Unsupported request");
 }
 
 void SDFileServer::handleUpload(AsyncWebServerRequest *request, const std::string &filename, size_t index, uint8_t *data,
