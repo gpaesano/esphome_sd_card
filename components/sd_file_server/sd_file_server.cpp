@@ -74,9 +74,8 @@ void SDFileServer::handleUpload(AsyncWebServerRequest *request, const std::strin
     return;
   }
   this->sd_mmc_card_->append_file(Path::join(path, file_name).c_str(), data, len);
-  if (final) {
-    auto response = request->beginResponse(302, "text/plain", "");
-    response->addHeader("Location", request->url().c_str());
+   if (final) {
+    auto response = request->beginResponse(201, "text/html", "upload success");
     response->addHeader("Connection", "close");
     request->send(response);
     return;
