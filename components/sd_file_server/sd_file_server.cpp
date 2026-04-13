@@ -36,7 +36,8 @@ void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
       this->handle_get(request);
       return;
     }
-    if (request->method() == HTTP_DELETE) {
+    if (request->hasParam("delete")) {
+    // if (request->method() == HTTP_DELETE) {
       this->handle_delete(request);
       return;
     }
