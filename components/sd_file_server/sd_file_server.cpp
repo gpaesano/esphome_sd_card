@@ -24,14 +24,9 @@ void SDFileServer::dump_config() {
 }
 
 bool SDFileServer::canHandle(AsyncWebServerRequest *request) const {
-  const char *url = request->url().c_str();
-  if (strcmp(url, "/favicon.ico") == 0 || strcmp(url, "/robots.txt") == 0) {
-    return false;
-  }
-  const char *prefix = this->build_prefix().c_str();
-  bool match = str_startswith(url, prefix);
-  ESP_LOGD(TAG, "can a handle %s %u", url, match);
-  return match;
+  ESP_LOGD(TAG, "can handle %s %u", request->url().c_str(),
+           str_startswith(std::string(request->url().c_str()), this->build_prefix()));
+  return str_startswith(std::string(request->url().c_str()), this->build_prefix());
 }
 
 void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
