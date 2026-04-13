@@ -24,7 +24,7 @@ void SDFileServer::dump_config() {
 }
 
 bool SDFileServer::canHandle(AsyncWebServerRequest *request) const {
-   if (url == "/favicon.ico" || url == "/robots.txt") { return false; }
+  if (url == "/favicon.ico" || url == "/robots.txt") { return false; }
   ESP_LOGD(TAG, "can handle %s %u", request->url().c_str(),
            str_startswith(std::string(request->url().c_str()), this->build_prefix()));
   return str_startswith(std::string(request->url().c_str()), this->build_prefix());
