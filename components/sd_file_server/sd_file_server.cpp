@@ -306,8 +306,7 @@ void SDFileServer::handle_index(AsyncWebServerRequest *request, std::string cons
 
   response->print("</tbody></table>"
                     "<script>"
-                    
-                    "function delete_file(path) {fetch(path + '?delete=1')    .then(r => r.text())    .then(() => location.reload())    .catch(console.error);}"
+                    "function delete_file(path){fetch(path+'?delete=1').then(r=>r.text()).then(()=>location.reload()).catch(console.error);}"
                     "function download_file(path, filename) {"
                     "fetch(path).then(response => response.blob())"
                     ".then(blob => {"
