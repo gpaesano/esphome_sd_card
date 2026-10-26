@@ -77,7 +77,10 @@ void SDFileServer::handleUpload(AsyncWebServerRequest *request, const std::strin
     request->send(401, "application/json", "{ \"error\": \"file upload is disabled\" }");
     return;
   }
-  std::string extracted = this->extract_path_from_url(std::string(request->url().c_str()));
+
+  char url_buf[AsyncWebServerRequest::URL_BUF_SIZE];
+  std::string extracted = this->extract_path_from_url(std::string(request->url_to(url_buf).c_str()));
+ // std::string extracted = this->extract_path_from_url(std::string(request->url().c_str()));
   std::string path = this->build_absolute_path(extracted);
 
   if (index == 0 && !this->sd_mmc_card_->is_directory(path)) {
