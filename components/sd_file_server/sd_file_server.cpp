@@ -37,17 +37,7 @@ bool SDFileServer::canHandle(AsyncWebServerRequest *request) const {
   return str_startswith(std::string(url.c_str()), this->build_prefix());
 }
 
-/* void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
-  const std::string url = request->url().c_str();
-
-  ESP_LOGD(TAG, "REQUEST: %s", url.c_str());
-
-  // sicurezza: filtra solo il nostro prefix
-  if (!str_startswith(url, this->build_prefix())) {
-    return;
-  }
- */ 
- void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
+void SDFileServer::handleRequest(AsyncWebServerRequest *request) {
   char url_buf[AsyncWebServerRequest::URL_BUF_SIZE];
   const std::string url = request->url_to(url_buf).c_str();
 
